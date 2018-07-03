@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 /**
  * Created by liuyangyang on 2018/6/12.
  */
-@Component
 public class TxtFileProcess implements ItemProcessor<FileEntry, FileEntry> {
 
 
