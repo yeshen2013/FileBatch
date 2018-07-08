@@ -4,6 +4,7 @@ import com.lyyexample.fileReadWrite.entry.FileEntry;
 import com.lyyexample.fileReadWrite.lineMapper.FileWriteLineMapper;
 import com.lyyexample.fileReadWrite.lineMapper.TxtLineMapper;
 import com.lyyexample.fileReadWrite.process.TxtFileProcess;
+import com.lyyexample.jobListener.BatchJobListener;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.*;
@@ -70,9 +71,11 @@ public class TxtFileBatchJob {
     @Bean("txtJob")
     public Job txtJob(
             JobBuilderFactory jobBuilderFactory,
+            BatchJobListener batchJobListener,
             @Qualifier("fileStep") Step fileStep){
         return jobBuilderFactory.get("txtJob")
                 .preventRestart()
+                .listener(batchJobListener)
                 .incrementer(new RunIdIncrementer())
                 .start(fileStep)
                 .build();
